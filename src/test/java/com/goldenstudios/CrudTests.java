@@ -8,40 +8,43 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 //import org.springframework.boot.test.context.SpringBootTest;
 
 import com.goldenstudios.entity.Flight;
+import com.goldenstudios.repository.FlightRepository;
 
 @DataJpaTest
-class MyspringdatademoApplicationTests {
+class CrudTests {
 
 	@Autowired
-	private EntityManager entityManager;
+	private FlightRepository flightRepository;
 	
 	@Test
-	void verifyFlightCanBeSaved() {
-		
+	public void shouldPerformCRUDOperations() {
+
 		final Flight flight = new Flight();
 		
 		flight.setOrigin("Tirupathi");
 		flight.setDestination("Hyderabad");
 		flight.setScheduledAt(LocalDateTime.parse("2020-11-21T12:12:12"));
 		
-		entityManager.persist(flight);
+		flightRepository.save(flight);
 		
-		final TypedQuery<Flight> results = entityManager.
-				createQuery("SELECT f FROM Flight f", Flight.class);
-		
-		final List<Flight> resultList = results.getResultList();
-		
-		assertThat(resultList)
+		assertThat(flightRepository.findAll())
 			.hasSize(1)
 			.first()
-			.isEqualTo(flight);
+			.isEqualToComparingFieldByField(flight);
+		
+		flightRepository.deleteById(flight.getId());
+		
+		assertThat(flightRepository.count())
+			.isZero();
 		
 	}
+	
 
 }
