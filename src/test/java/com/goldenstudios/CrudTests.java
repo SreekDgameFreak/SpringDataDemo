@@ -3,25 +3,25 @@ package com.goldenstudios;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-//import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 
 import com.goldenstudios.entity.Flight;
 import com.goldenstudios.repository.FlightRepository;
 
-@DataJpaTest
+@DataMongoTest
 class CrudTests {
 
 	@Autowired
 	private FlightRepository flightRepository;
+	
+	@BeforeEach
+	public void setUp() {
+		flightRepository.deleteAll();
+	}
 	
 	@Test
 	public void shouldPerformCRUDOperations() {
