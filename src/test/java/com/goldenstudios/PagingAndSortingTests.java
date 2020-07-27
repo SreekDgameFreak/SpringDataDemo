@@ -8,7 +8,7 @@ import java.util.Iterator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -17,7 +17,7 @@ import org.springframework.data.domain.Sort.Direction;
 import com.goldenstudios.entity.Flight;
 import com.goldenstudios.repository.FlightRepository;
 
-@DataMongoTest
+@DataJpaTest
 public class PagingAndSortingTests {
 
 	@Autowired

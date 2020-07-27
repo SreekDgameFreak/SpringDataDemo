@@ -8,7 +8,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.goldenstudios.entity.Flight;
 
-public interface FlightRepository extends PagingAndSortingRepository<Flight, String>{
+public interface FlightRepository extends PagingAndSortingRepository<Flight, Long>{
 
 	//Derived Queries
 	List<Flight> findByOrigin(String origin);
